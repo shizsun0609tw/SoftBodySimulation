@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\main.cpp" />
+    <ClCompile Include="..\src\gfx\camera.cpp" />
+    <ClCompile Include="..\src\gfx\graphic.cpp" />
+    <ClCompile Include="..\src\gfx\shader.cpp" />
+    <ClCompile Include="..\src\gfx\texture.cpp" />
+    <ClCompile Include="..\src\simulation\cube.cpp" />
+    <ClCompile Include="..\src\simulation\integrator.cpp" />
+    <ClCompile Include="..\src\simulation\massSpringSystem.cpp" />
+    <ClCompile Include="..\src\simulation\particle.cpp" />
+    <ClCompile Include="..\src\simulation\spring.cpp" />
+    <ClCompile Include="..\src\simulation\terrain.cpp" />
+    <ClCompile Include="..\src\util\clock.cpp" />
+    <ClCompile Include="..\src\util\exporter.cpp" />
+    <ClCompile Include="..\src\util\filesystem.cpp" />
+    <ClCompile Include="..\src\util\helper.cpp" />
+    <ClCompile Include="..\vendor\src\glad.c" />
+    <ClCompile Include="..\vendor\src\imgui.cpp" />
+    <ClCompile Include="..\vendor\src\imgui_demo.cpp" />
+    <ClCompile Include="..\vendor\src\imgui_draw.cpp" />
+    <ClCompile Include="..\vendor\src\imgui_impl_glfw.cpp" />
+    <ClCompile Include="..\vendor\src\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="..\vendor\src\imgui_tables.cpp" />
+    <ClCompile Include="..\vendor\src\imgui_widgets.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\assets\Shader\particle.frag" />
+    <None Include="..\assets\Shader\particle.vert" />
+    <None Include="..\assets\Shader\render.frag" />
+    <None Include="..\assets\Shader\render.vert" />
+    <None Include="..\assets\Shader\shadow.frag" />
+    <None Include="..\assets\Shader\shadow.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\gfx\camera.h" />
+    <ClInclude Include="..\src\gfx\graphic.h" />
+    <ClInclude Include="..\src\gfx\shader.h" />
+    <ClInclude Include="..\src\gfx\texture.h" />
+    <ClInclude Include="..\src\simulation\cube.h" />
+    <ClInclude Include="..\src\simulation\integrator.h" />
+    <ClInclude Include="..\src\simulation\massSpringSystem.h" />
+    <ClInclude Include="..\src\simulation\particle.h" />
+    <ClInclude Include="..\src\simulation\spring.h" />
+    <ClInclude Include="..\src\simulation\terrain.h" />
+    <ClInclude Include="..\src\util\clock.h" />
+    <ClInclude Include="..\src\util\exporter.h" />
+    <ClInclude Include="..\src\util\filesystem.h" />
+    <ClInclude Include="..\src\util\helper.h" />
+    <ClInclude Include="..\vendor\include\glad\glad.h" />
+    <ClInclude Include="..\vendor\glfw\include\GLFW\glfw3.h" />
+    <ClInclude Include="..\vendor\glfw\include\GLFW\glfw3native.h" />
+    <ClInclude Include="..\vendor\include\imconfig.h" />
+    <ClInclude Include="..\vendor\include\imgui.h" />
+    <ClInclude Include="..\vendor\include\imgui_impl_glfw.h" />
+    <ClInclude Include="..\vendor\include\imgui_impl_opengl3.h" />
+    <ClInclude Include="..\vendor\include\imgui_internal.h" />
+    <ClInclude Include="..\vendor\include\imstb_rectpack.h" />
+    <ClInclude Include="..\vendor\include\imstb_textedit.h" />
+    <ClInclude Include="..\vendor\include\imstb_truetype.h" />
+    <ClInclude Include="..\vendor\include\KHR\khrplatform.h" />
+    <ClInclude Include="..\vendor\include\stb_image.h" />
+    <ClInclude Include="..\vendor\include\stb_image_write.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{fbc9ea6e-475d-46a3-be43-bde2947d85ab}</ProjectGuid>
+    <RootNamespace>SoftSim</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>..\bin\</OutDir>
+    <IntDir>..\bin\intermediate\</IntDir>
+    <TargetName>SoftSim</TargetName>
+    <IncludePath>$(ProjectDir)..\vendor\include;$(ProjectDir)..\vendor\glfw\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)..\vendor\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <TargetName>SoftSim</TargetName>
+    <IncludePath>$(ProjectDir)..\vendor\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)..\vendor\lib;$(LibraryPath)</LibraryPath>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Label="Vcpkg">
+    <VcpkgEnabled>false</VcpkgEnabled>
+    <VcpkgManifestInstall>false</VcpkgManifestInstall>
+    <VcpkgAutoLink>false</VcpkgAutoLink>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>GLFW_INCLUDE_NONE;IMGUI_IMPL_OPENGL_LOADER_GLAD;_ENABLE_EXTENDED_ALIGNED_STORAGE;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>stdc11</LanguageStandard_C>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <AdditionalDependencies>glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ProgramDatabaseFile>$(IntDir)$(TargetName).pdb</ProgramDatabaseFile>
+      <LinkTimeCodeGeneration>UseFastLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>GLFW_INCLUDE_NONE;IMGUI_IMPL_OPENGL_LOADER_GLAD;_ENABLE_EXTENDED_ALIGNED_STORAGE;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>stdc11</LanguageStandard_C>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ProgramDatabaseFile>$(IntDir)$(TargetName).pdb</ProgramDatabaseFile>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

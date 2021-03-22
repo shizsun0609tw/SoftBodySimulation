@@ -1,0 +1,10 @@
+﻿---
+BasedOnStyle: Google
+AccessModifierOffset: '-3'
+IndentWidth: '4'
+TabWidth: '4'
+UseTab: Never
+IncludeBlocks: Preserve
+ColumnLimit: '120'
+
+...

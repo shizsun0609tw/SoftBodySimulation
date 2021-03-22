@@ -1,0 +1,254 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="來源檔案">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="來源檔案\vender">
+      <UniqueIdentifier>{091200e9-bbb7-41a3-b029-1ba0c9c28413}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="來源檔案\vender\glad">
+      <UniqueIdentifier>{bed89dd6-51cf-4baa-9d96-417287f1de5a}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="來源檔案\vender\imgui">
+      <UniqueIdentifier>{caf7e926-da4e-4d3b-8469-363781d260c8}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="來源檔案\simulation">
+      <UniqueIdentifier>{e076fd54-39ac-4a07-9873-60fcfe9d8889}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="來源檔案\utils">
+      <UniqueIdentifier>{64b746bd-9b7b-48cc-b95f-38e50409c3d3}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="來源檔案\graphic">
+      <UniqueIdentifier>{809acb22-3230-432d-a090-0dab5e969104}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="著色器">
+      <UniqueIdentifier>{e40f7dc2-4c0d-4c31-8695-11b4769b72ae}</UniqueIdentifier>
+      <Extensions>frag;vert;fs;vs</Extensions>
+    </Filter>
+    <Filter Include="標頭檔">
+      <UniqueIdentifier>{dc175f93-be07-4ca3-a116-b9e8613d4871}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="標頭檔\vender">
+      <UniqueIdentifier>{633a82db-03f1-45d4-b0cd-43d482cf7cb4}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="標頭檔\vender\KHR">
+      <UniqueIdentifier>{30c9de03-9a39-41fd-8488-567368875ca1}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="標頭檔\vender\GLFW">
+      <UniqueIdentifier>{7806ed31-917c-46dc-a9fb-4d94ef6ecfce}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="標頭檔\vender\glad">
+      <UniqueIdentifier>{6df6ce7a-53b0-490e-a6a6-5fadb2328e93}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="標頭檔\vender\imgui">
+      <UniqueIdentifier>{ba2df0dd-97b2-4aae-8c1a-63e5f19ac217}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="標頭檔\vender\stb">
+      <UniqueIdentifier>{c7995d46-0fa5-4536-9a98-09196deb2542}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="標頭檔\simulation">
+      <UniqueIdentifier>{76b71ed9-6161-4e01-bde6-519e7caed584}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="標頭檔\graphic">
+      <UniqueIdentifier>{ae07648c-135f-4fd0-aa8e-0ee3f3880d72}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="標頭檔\utils">
+      <UniqueIdentifier>{de7bf400-0672-41b7-a907-89c8fd3bf589}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\vendor\src\glad.c">
+      <Filter>來源檔案\vender\glad</Filter>
+    </ClCompile>
+    <ClCompile Include="..\vendor\src\imgui.cpp">
+      <Filter>來源檔案\vender\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\vendor\src\imgui_demo.cpp">
+      <Filter>來源檔案\vender\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\vendor\src\imgui_draw.cpp">
+      <Filter>來源檔案\vender\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\vendor\src\imgui_impl_glfw.cpp">
+      <Filter>來源檔案\vender\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\vendor\src\imgui_impl_opengl3.cpp">
+      <Filter>來源檔案\vender\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\vendor\src\imgui_tables.cpp">
+      <Filter>來源檔案\vender\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\vendor\src\imgui_widgets.cpp">
+      <Filter>來源檔案\vender\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\simulation\cube.cpp">
+      <Filter>來源檔案\simulation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\simulation\integrator.cpp">
+      <Filter>來源檔案\simulation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\simulation\massSpringSystem.cpp">
+      <Filter>來源檔案\simulation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\simulation\particle.cpp">
+      <Filter>來源檔案\simulation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\simulation\spring.cpp">
+      <Filter>來源檔案\simulation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\simulation\terrain.cpp">
+      <Filter>來源檔案\simulation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\clock.cpp">
+      <Filter>來源檔案\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\exporter.cpp">
+      <Filter>來源檔案\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\filesystem.cpp">
+      <Filter>來源檔案\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\helper.cpp">
+      <Filter>來源檔案\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\gfx\camera.cpp">
+      <Filter>來源檔案\graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\gfx\graphic.cpp">
+      <Filter>來源檔案\graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\gfx\shader.cpp">
+      <Filter>來源檔案\graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\gfx\texture.cpp">
+      <Filter>來源檔案\graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\main.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\assets\Shader\particle.frag">
+      <Filter>著色器</Filter>
+    </None>
+    <None Include="..\assets\Shader\particle.vert">
+      <Filter>著色器</Filter>
+    </None>
+    <None Include="..\assets\Shader\render.frag">
+      <Filter>著色器</Filter>
+    </None>
+    <None Include="..\assets\Shader\render.vert">
+      <Filter>著色器</Filter>
+    </None>
+    <None Include="..\assets\Shader\shadow.frag">
+      <Filter>著色器</Filter>
+    </None>
+    <None Include="..\assets\Shader\shadow.vert">
+      <Filter>著色器</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\vendor\include\KHR\khrplatform.h">
+      <Filter>標頭檔\vender\KHR</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vendor\glfw\include\GLFW\glfw3.h">
+      <Filter>標頭檔\vender\GLFW</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vendor\glfw\include\GLFW\glfw3native.h">
+      <Filter>標頭檔\vender\GLFW</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vendor\include\glad\glad.h">
+      <Filter>標頭檔\vender\glad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vendor\include\imconfig.h">
+      <Filter>標頭檔\vender\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vendor\include\imgui.h">
+      <Filter>標頭檔\vender\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vendor\include\imgui_impl_glfw.h">
+      <Filter>標頭檔\vender\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vendor\include\imgui_impl_opengl3.h">
+      <Filter>標頭檔\vender\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vendor\include\imgui_internal.h">
+      <Filter>標頭檔\vender\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vendor\include\imstb_rectpack.h">
+      <Filter>標頭檔\vender\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vendor\include\imstb_textedit.h">
+      <Filter>標頭檔\vender\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vendor\include\imstb_truetype.h">
+      <Filter>標頭檔\vender\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vendor\include\stb_image.h">
+      <Filter>標頭檔\vender\stb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vendor\include\stb_image_write.h">
+      <Filter>標頭檔\vender\stb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\simulation\cube.h">
+      <Filter>標頭檔\simulation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\simulation\integrator.h">
+      <Filter>標頭檔\simulation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\simulation\massSpringSystem.h">
+      <Filter>標頭檔\simulation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\simulation\particle.h">
+      <Filter>標頭檔\simulation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\simulation\spring.h">
+      <Filter>標頭檔\simulation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\simulation\terrain.h">
+      <Filter>標頭檔\simulation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\gfx\camera.h">
+      <Filter>標頭檔\graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\gfx\graphic.h">
+      <Filter>標頭檔\graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\gfx\shader.h">
+      <Filter>標頭檔\graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\gfx\texture.h">
+      <Filter>標頭檔\graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\clock.h">
+      <Filter>標頭檔\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\exporter.h">
+      <Filter>標頭檔\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\filesystem.h">
+      <Filter>標頭檔\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\helper.h">
+      <Filter>標頭檔\utils</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
