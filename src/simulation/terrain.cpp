@@ -1,7 +1,9 @@
 #include "terrain.h"
 
 #include <stdexcept>
+#include <stdlib.h>
 
+#include "particle.h"
 #include "../util/helper.h"
 
 namespace simulation {
@@ -40,7 +42,32 @@ void PlaneTerrain::handleCollision(const float delta_T, Cube& cube) {
     constexpr float eEPSILON = 0.01f;
     constexpr float coefResist = 0.8f;
     constexpr float coefFriction = 0.3f;
-    // TODO
+   
+    std::vector<simulation::Particle> * particles = cube.getParticlePointer();
+    for (int i = 0; i < particles->size(); ++i) {
+        if (fabs(this->normal.dot(this->position - (*particles)[i].getPosition())) < eEPSILON
+            && this->normal.dot((*particles)[i].getVelocity()) < 0)
+        {
+            Eigen::Vector3f vn = (*particles)[i].getVelocity().dot(this->normal) / (this->normal).norm() * this->normal;
+            Eigen::Vector3f vt = (*particles)[i].getVelocity() - vn;
+
+            (*particles)[i].setPosition((*particles)[i].getPosition() + this->normal * eEPSILON);
+            (*particles)[i].setVelocity(-coefResist * vn + vt);
+
+            Eigen::Vector3f fc = Eigen::Vector3f::Zero();
+            Eigen::Vector3f ff = Eigen::Vector3f::Zero();
+
+            if (this->normal.dot((*particles)[i].getForce()) < 0) 
+            {
+                fc = -(this->normal.dot((*particles)[i].getForce())) * this->normal;
+                ff = -coefFriction * (-this->normal.dot((*particles)[i].getForce())) * vt;
+            }
+
+            (*particles)[i].addForce(fc + ff);
+        }
+    }
+
+    cube.computeInternalForce();
 }
 
 // SphereTerrain //
@@ -53,7 +80,7 @@ void SphereTerrain::handleCollision(const float delta_T, Cube& cube) {
     constexpr float eEPSILON = 0.01f;
     constexpr float coefResist = 0.8f;
     constexpr float coefFriction = 0.3f;
-    // TODO
+    
 }
 
 // BowlTerrain //

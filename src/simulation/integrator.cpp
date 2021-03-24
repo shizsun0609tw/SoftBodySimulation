@@ -1,6 +1,8 @@
 #include "integrator.h"
 
 #include <vector>
+#include <iostream>
+
 namespace simulation {
 // Factory
 std::unique_ptr<Integrator> IntegratorFactory::CreateIntegrator(IntegratorType type) {
@@ -27,7 +29,14 @@ std::unique_ptr<Integrator> IntegratorFactory::CreateIntegrator(IntegratorType t
 IntegratorType ExplicitEulerIntegrator::getType() { return IntegratorType::ExplicitEuler; }
 
 void ExplicitEulerIntegrator::integrate(MassSpringSystem& particleSystem) {
-    // TODO
+    std::vector<Particle> * particles = particleSystem.getCubePointer(0)->getParticlePointer();
+    Eigen::Vector3f offset = Eigen::Vector3f::Zero();
+
+    for (int i = 0; i < particles->size(); ++i) {
+        (*particles)[i].addAcceleration((*particles)[i].getForce() / (*particles)[i].getMass() * particleSystem.deltaTime);
+        (*particles)[i].addVelocity((*particles)[i].getAcceleration() * particleSystem.deltaTime);
+        (*particles)[i].addPosition((*particles)[i].getVelocity() * particleSystem.deltaTime);
+    }
 }
 
 //
@@ -38,6 +47,7 @@ IntegratorType ImplicitEulerIntegrator::getType() { return IntegratorType::Impli
 
 void ImplicitEulerIntegrator::integrate(MassSpringSystem& particleSystem) {
     // TODO
+
 }
 
 //
