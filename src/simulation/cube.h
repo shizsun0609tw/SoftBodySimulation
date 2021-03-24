@@ -72,5 +72,12 @@ class Cube {
     Eigen::Vector3f computeDamperForce(const Eigen::Vector3f &positionA, const Eigen::Vector3f &positionB,
                                        const Eigen::Vector3f &velocityA, const Eigen::Vector3f &velocityB,
                                        const float damperCoef);
+
+private:
+    void initalizeSpringBending();
+    void initalizeSpringStruct();
+    void initializeSpringShear();
+    void initializeSpringShearLine(const int particleID, const int i, const int j, const int k);
+    void pushSpringLine(const int particleID, const int neighborID, Spring::SpringType springType);
 };
 }  // namespace simulation

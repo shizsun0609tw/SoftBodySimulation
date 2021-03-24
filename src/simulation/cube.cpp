@@ -1,7 +1,7 @@
 #include "cube.h"
 
 #include "Eigen/Dense"
-
+#include <iostream>
 #include "../util/helper.h"
 namespace simulation {
 constexpr float g_cdK = 2500.0f;
@@ -167,6 +167,193 @@ void Cube::initializeParticle() {
     }
 }
 
+void Cube::pushSpringLine(const int particleID, const int neighborID, Spring::SpringType springType) 
+{
+    Eigen::Vector3f Length = Eigen::Vector3f::Zero();
+    Length = particles[particleID].getPosition() - particles[particleID].getPosition();
+
+    switch (springType) {
+        case Spring::SpringType::STRUCT:
+            springs.push_back(Spring(particleID, neighborID, Length.norm(), springCoefStruct, damperCoefStruct,
+                                     Spring::SpringType::STRUCT));
+            break;
+        case Spring::SpringType::BENDING:
+            springs.push_back(Spring(particleID, neighborID, Length.norm(), springCoefBending, damperCoefBending,
+                                     Spring::SpringType::BENDING));
+            break;
+        case Spring::SpringType::SHEAR:
+            springs.push_back(Spring(particleID, neighborID, Length.norm(), springCoefShear, damperCoefShear,
+                                     Spring::SpringType::SHEAR));
+            break;
+        default:
+            break;
+    }
+}
+
+void Cube::initalizeSpringBending()
+{
+    int iParticleID = 0;
+    int iNeighborID = 0;
+    Eigen::Vector3f Length = Eigen::Vector3f::Zero();
+    
+    for (int i = 0; i < particleNumPerEdge; i ++) {
+        for (int j = 0; j < particleNumPerEdge; j ++) {
+            for (int k = 0; k < particleNumPerEdge; k ++) {
+                iParticleID = i * particleNumPerFace + j * particleNumPerEdge + k;
+                // front
+                if (k < particleNumPerEdge - 2) {
+                
+                    iNeighborID = iParticleID + 2;
+                    pushSpringLine(iParticleID, iNeighborID, Spring::SpringType::BENDING);
+                }
+                
+                // top
+                if (j < particleNumPerEdge - 2) {
+                    iNeighborID = iParticleID + particleNumPerEdge * 2;
+                    pushSpringLine(iParticleID, iNeighborID, Spring::SpringType::BENDING);
+                }
+                // right
+                if (i < particleNumPerEdge - 2) {
+                    iNeighborID = iParticleID + particleNumPerFace * 2;
+                    pushSpringLine(iParticleID, iNeighborID, Spring::SpringType::BENDING);
+                }
+            }
+        }
+    }
+}
+
+void Cube::initalizeSpringStruct() 
+{
+    int iParticleID = 0;
+    int iNeighborID = 0;
+    Eigen::Vector3f Length = Eigen::Vector3f::Zero();
+
+    for (int i = 0; i < particleNumPerEdge; ++i) {
+        for (int j = 0; j < particleNumPerEdge; ++j) {
+            for (int k = 0; k < particleNumPerEdge; ++k) {
+                iParticleID = i * particleNumPerFace + j * particleNumPerEdge + k;
+                // front
+                if (k != particleNumPerEdge - 1) {
+                    iNeighborID = iParticleID + 1;
+                    pushSpringLine(iParticleID, iNeighborID, Spring::SpringType::STRUCT);
+                }
+                // top
+                if (j != particleNumPerEdge - 1) {
+                    iNeighborID = iParticleID + particleNumPerEdge;
+                    pushSpringLine(iParticleID, iNeighborID, Spring::SpringType::STRUCT);
+                }
+                // right
+                if (i != particleNumPerEdge - 1) {
+                    iNeighborID = iParticleID + particleNumPerFace;
+                    pushSpringLine(iParticleID, iNeighborID, Spring::SpringType::STRUCT);
+                }
+            }
+        }
+    }
+}
+
+void Cube::initializeSpringShear()
+{
+    int iParticleID = 0;
+    int iNeighborID = 0;
+    Eigen::Vector3f Length = Eigen::Vector3f::Zero();
+
+    // TODO
+    for (int i = 0; i < particleNumPerEdge; ++i) {
+        for (int j = 0; j < particleNumPerEdge; ++j) {
+            for (int k = 0; k < particleNumPerEdge; ++k) {
+                iParticleID = i * particleNumPerFace + j * particleNumPerEdge + k;
+
+                initializeSpringShearLine(iParticleID, i, j, k);
+            }
+        }
+    }
+}
+
+void Cube::initializeSpringShearLine(const int particleID, const int i, const int j, const int k) {
+    /*
+    
+      4--------5
+     /|       /|            j
+    6--------7-|            |
+    | 0------|-1            . - i
+    |/       |/           /
+    2--------3          k
+    
+    */
+
+    int iNeighborID = 0;
+    Eigen::Vector3f Length = Eigen::Vector3f::Zero();
+    
+    //  0-6
+    if (k != particleNumPerEdge - 1 && j != particleNumPerEdge - 1) {
+        iNeighborID = particleID + particleNumPerEdge + 1;
+        pushSpringLine(particleID, iNeighborID, Spring::SpringType::SHEAR);
+    }
+
+    //  0-7
+    if (k != particleNumPerEdge -1 && j != particleNumPerEdge - 1 && i != particleNumPerEdge - 1) {
+        iNeighborID = particleID + particleNumPerFace + particleNumPerEdge + 1;
+        pushSpringLine(particleID, iNeighborID, Spring::SpringType::SHEAR);
+    }
+
+    // 0-5
+    if (j != particleNumPerEdge - 1 && i != particleNumPerEdge - 1)
+    {
+        iNeighborID = particleID + particleNumPerEdge + particleNumPerFace;
+        pushSpringLine(particleID, iNeighborID, Spring::SpringType::SHEAR);
+    }
+
+    // 0-3
+    if (k != particleNumPerEdge - 1 && i != particleNumPerEdge - 1)
+    {
+        iNeighborID = particleID + particleNumPerFace + 1;
+        pushSpringLine(particleID, iNeighborID, Spring::SpringType::SHEAR);
+    }
+
+    // 2-4
+    if (k != 0 && j != particleNumPerEdge - 1)
+    {
+        iNeighborID = particleID + particleNumPerEdge - 1;
+        pushSpringLine(particleID, iNeighborID, Spring::SpringType::SHEAR);
+    }
+
+    // 2-1
+    if (k != 0 && i != particleNumPerEdge - 1)
+    {
+        iNeighborID = particleID + particleNumPerFace - 1;
+        pushSpringLine(particleID, iNeighborID, Spring::SpringType::SHEAR);
+    }
+
+    // 2-5
+    if (k != 0 && j != particleNumPerEdge - 1 && i != particleNumPerEdge - 1)
+    {
+        iNeighborID = particleID + particleNumPerEdge + particleNumPerFace - 1;
+        pushSpringLine(particleID, iNeighborID, Spring::SpringType::SHEAR);
+    }
+    
+    // 1-6
+    if (k != particleNumPerEdge - 1 && j != particleNumPerEdge - 1 && i != 0) 
+    {
+        iNeighborID = particleID + particleNumPerEdge - particleNumPerFace + 1;
+        pushSpringLine(particleID, iNeighborID, Spring::SpringType::SHEAR);
+    }
+    
+    // 4-3
+    if (k != particleNumPerEdge - 1 && j != 0 && i != particleNumPerEdge - 1)
+    {
+        iNeighborID = particleID - particleNumPerEdge + particleNumPerFace + 1;
+        pushSpringLine(particleID, iNeighborID, Spring::SpringType::SHEAR);
+    }
+    
+    // 4-1
+    if (j != 0 && i != particleNumPerEdge - 1) 
+    {
+        iNeighborID = particleID - particleNumPerEdge + particleNumPerFace;
+        pushSpringLine(particleID, iNeighborID, Spring::SpringType::SHEAR);
+    }
+}
+
 void Cube::initializeSpring() {
     int iParticleID = 0;
     int iNeighborID = 0;
@@ -180,6 +367,9 @@ void Cube::initializeSpring() {
         Z_id = 3
     };
     
+    initalizeSpringBending();
+    initalizeSpringStruct();
+    initializeSpringShear();
 }
 
 void Cube::updateSpringCoef(const float a_cdSpringCoef, const Spring::SpringType a_cSpringType) {

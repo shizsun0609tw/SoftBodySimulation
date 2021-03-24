@@ -29,7 +29,7 @@ First step: Search TODO comments to find the methods that you need to implement.
 namespace {
 // TODO
 // Please change this c string to your student ID
-constexpr const char* studentID = "987654321";
+constexpr const char* studentID = "309551007";
 // Shadow texture size, default is 8192 * 8192
 // If shadow render time in debug panel with vsync OFF is too high, you can
 // reduce it to 1024 * 1024 or lower but it will result in low shadow quality
