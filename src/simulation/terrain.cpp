@@ -42,7 +42,7 @@ TerrainType PlaneTerrain::getType() { return TerrainType::Plane; }
 void PlaneTerrain::handleCollision(const float delta_T, Cube& cube) {
     constexpr float eEPSILON = 0.01f;
     constexpr float coefResist = 0.8f;
-    constexpr float coefFriction = 0.3f;
+    constexpr float coefFriction = 0.7f;
    
     std::vector<simulation::Particle> * particles = cube.getParticlePointer();
     for (int i = 0; i < particles->size(); ++i) {
@@ -80,6 +80,30 @@ void SphereTerrain::handleCollision(const float delta_T, Cube& cube) {
     constexpr float coefResist = 0.8f;
     constexpr float coefFriction = 0.3f;
     
+    Eigen::Vector3f normal = Eigen::Vector3f::Zero();
+    
+    std::vector<simulation::Particle>* particles = cube.getParticlePointer();
+    for (int i = 0; i < particles->size(); ++i) {
+        normal = ((*particles)[i].getPosition() - this->position).normalized();
+        if (fabs(normal.dot(this->position - (*particles)[i].getPosition())) < eEPSILON + radius &&
+            normal.dot((*particles)[i].getVelocity()) < 0) {
+            Eigen::Vector3f vn = (*particles)[i].getVelocity().dot(normal) / (normal).norm() * normal;
+            Eigen::Vector3f vt = (*particles)[i].getVelocity() - vn;
+
+            (*particles)[i].setPosition((*particles)[i].getPosition() + normal * eEPSILON);
+            (*particles)[i].setVelocity(-coefResist * vn + vt);
+
+            Eigen::Vector3f fc = Eigen::Vector3f::Zero();
+            Eigen::Vector3f ff = Eigen::Vector3f::Zero();
+
+            if (normal.dot((*particles)[i].getForce()) < 0) {
+                fc = -(normal.dot((*particles)[i].getForce())) * normal;
+                ff = -coefFriction * (-normal.dot((*particles)[i].getForce())) * vt;
+            }
+
+            (*particles)[i].addForce(fc + ff);
+        }
+    }
 }
 
 // BowlTerrain //
@@ -92,7 +116,30 @@ void BowlTerrain::handleCollision(const float delta_T, Cube& cube) {
     constexpr float eEPSILON = 0.01f;
     constexpr float coefResist = 0.8f;
     constexpr float coefFriction = 0.3f;
-    // TODO
+    Eigen::Vector3f normal = Eigen::Vector3f::Zero();
+
+    std::vector<simulation::Particle>* particles = cube.getParticlePointer();
+    for (int i = 0; i < particles->size(); ++i) {
+        normal = (this->position - (*particles)[i].getPosition()).normalized();
+        if (fabs(normal.dot(this->position - (*particles)[i].getPosition())) > radius + eEPSILON &&
+            normal.dot((*particles)[i].getVelocity()) < 0) {
+            Eigen::Vector3f vn = (*particles)[i].getVelocity().dot(normal) / (normal).norm() * normal;
+            Eigen::Vector3f vt = (*particles)[i].getVelocity() - vn;
+
+            (*particles)[i].setPosition((*particles)[i].getPosition() + normal * eEPSILON);
+            (*particles)[i].setVelocity(-coefResist * vn + vt);
+
+            Eigen::Vector3f fc = Eigen::Vector3f::Zero();
+            Eigen::Vector3f ff = Eigen::Vector3f::Zero();
+
+            if (normal.dot((*particles)[i].getForce()) < 0) {
+                fc = -(normal.dot((*particles)[i].getForce())) * normal;
+                ff = -coefFriction * (-normal.dot((*particles)[i].getForce())) * vt;
+            }
+
+            (*particles)[i].addForce(fc + ff);
+        }
+    }
 }
 
 // TiltedPlaneTerrain //
@@ -105,6 +152,27 @@ void TiltedPlaneTerrain::handleCollision(const float delta_T, Cube& cube) {
     constexpr float eEPSILON = 0.01f;
     constexpr float coefResist = 0.8f;
     constexpr float coefFriction = 0.3f;
-    // TODO
+   
+    std::vector<simulation::Particle>* particles = cube.getParticlePointer();
+    for (int i = 0; i < particles->size(); ++i) {
+        if (fabs(this->normal.dot(this->position - (*particles)[i].getPosition())) < eEPSILON &&
+            this->normal.dot((*particles)[i].getVelocity()) < 0) {
+            Eigen::Vector3f vn = (*particles)[i].getVelocity().dot(this->normal) / (this->normal).norm() * this->normal;
+            Eigen::Vector3f vt = (*particles)[i].getVelocity() - vn;
+
+            (*particles)[i].setPosition((*particles)[i].getPosition() + this->normal * eEPSILON * 0.1);
+            (*particles)[i].setVelocity(-coefResist * vn + vt);
+
+            Eigen::Vector3f fc = Eigen::Vector3f::Zero();
+            Eigen::Vector3f ff = Eigen::Vector3f::Zero();
+
+            if (this->normal.dot((*particles)[i].getForce()) < 0) {
+                fc = -(this->normal.dot((*particles)[i].getForce())) * this->normal;
+                ff = -coefFriction * (-this->normal.dot((*particles)[i].getForce())) * vt;
+            }
+
+            (*particles)[i].addForce(fc + ff);
+        }
+    }
 }
 }  // namespace simulation
