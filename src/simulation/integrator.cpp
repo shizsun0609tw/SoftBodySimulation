@@ -33,7 +33,6 @@ void ExplicitEulerIntegrator::integrate(MassSpringSystem& particleSystem) {
     Eigen::Vector3f offset = Eigen::Vector3f::Zero();
 
     for (int i = 0; i < particles->size(); ++i) {
-        (*particles)[i].addAcceleration((*particles)[i].getForce() / (*particles)[i].getMass() * particleSystem.deltaTime);
         (*particles)[i].addVelocity((*particles)[i].getAcceleration() * particleSystem.deltaTime);
         (*particles)[i].addPosition((*particles)[i].getVelocity() * particleSystem.deltaTime);
     }

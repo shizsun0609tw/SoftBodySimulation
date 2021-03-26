@@ -135,20 +135,55 @@ void Cube::addForceField(const Eigen::Vector3f &force) {
 }
 
 void Cube::computeInternalForce() {
-    // TODO
+    Eigen::Vector3f spring_force_a = Eigen::Vector3f::Zero();
+    Eigen::Vector3f spring_force_b = Eigen::Vector3f::Zero();
+    Eigen::Vector3f damper_force_a = Eigen::Vector3f::Zero();
+    Eigen::Vector3f damper_force_b = Eigen::Vector3f::Zero();
+    int start_id = 0;
+    int end_id = 0;
+
+    for (int i = 0; i < springs.size(); i++) 
+    {
+        start_id = springs[i].getSpringStartID();
+        end_id = springs[i].getSpringEndID();
+
+        spring_force_a = computeSpringForce(particles[start_id].getPosition(), particles[end_id].getPosition(), 
+                                          springs[i].getSpringCoef(), springs[i].getSpringRestLength());
+        damper_force_a = computeDamperForce(particles[start_id].getPosition(), particles[end_id].getPosition(), 
+                                          particles[start_id].getVelocity(), particles[end_id].getVelocity(),
+                                          springs[i].getDamperCoef());        
+        spring_force_b = computeSpringForce(particles[end_id].getPosition(), particles[start_id].getPosition(),
+                                          springs[i].getSpringCoef(), springs[i].getSpringRestLength());
+        damper_force_b = computeDamperForce(particles[end_id].getPosition(), particles[start_id].getPosition(),
+                                          particles[end_id].getVelocity(), particles[start_id].getVelocity(),
+                                          springs[i].getDamperCoef());
+
+        particles[start_id].addForce(spring_force_a + damper_force_a);
+        particles[end_id].addForce(spring_force_b + damper_force_b);
+    }
 }
 
 Eigen::Vector3f Cube::computeSpringForce(const Eigen::Vector3f &positionA, const Eigen::Vector3f &positionB,
                                          const float springCoef, const float restLength) {
-    // TODO
-    return Eigen::Vector3f::Zero();
+    Eigen::Vector3f f = Eigen::Vector3f::Zero();
+
+    f = -springCoef * 
+        (fabs((positionA - positionB).norm()) - restLength) *
+        ((positionA - positionB) / (fabs((positionA - positionB).norm())));
+
+    return f;
 }
 
 Eigen::Vector3f Cube::computeDamperForce(const Eigen::Vector3f &positionA, const Eigen::Vector3f &positionB,
                                          const Eigen::Vector3f &velocityA, const Eigen::Vector3f &velocityB,
                                          const float damperCoef) {
-    // TODO
-    return Eigen::Vector3f::Zero();
+    Eigen::Vector3f f = Eigen::Vector3f::Zero();
+
+    f = -damperCoef * 
+        (((velocityA - velocityB).dot(positionA - positionB)) / (fabs((positionA - positionB).norm()))) * 
+        ((positionA - positionB) / (fabs((positionA - positionB).norm())));
+
+    return f;
 }
 
 void Cube::initializeParticle() {
@@ -169,20 +204,19 @@ void Cube::initializeParticle() {
 
 void Cube::pushSpringLine(const int particleID, const int neighborID, Spring::SpringType springType) 
 {
-    Eigen::Vector3f Length = Eigen::Vector3f::Zero();
-    Length = particles[particleID].getPosition() - particles[particleID].getPosition();
-
+    float length = fabs((particles[particleID].getPosition() - particles[neighborID].getPosition()).norm());
+    
     switch (springType) {
         case Spring::SpringType::STRUCT:
-            springs.push_back(Spring(particleID, neighborID, Length.norm(), springCoefStruct, damperCoefStruct,
+            springs.push_back(Spring(particleID, neighborID, length, springCoefStruct, damperCoefStruct,
                                      Spring::SpringType::STRUCT));
             break;
         case Spring::SpringType::BENDING:
-            springs.push_back(Spring(particleID, neighborID, Length.norm(), springCoefBending, damperCoefBending,
+            springs.push_back(Spring(particleID, neighborID, length, springCoefBending, damperCoefBending,
                                      Spring::SpringType::BENDING));
             break;
         case Spring::SpringType::SHEAR:
-            springs.push_back(Spring(particleID, neighborID, Length.norm(), springCoefShear, damperCoefShear,
+            springs.push_back(Spring(particleID, neighborID, length, springCoefShear, damperCoefShear,
                                      Spring::SpringType::SHEAR));
             break;
         default:

@@ -1,6 +1,7 @@
 #include "terrain.h"
 
 #include <stdexcept>
+#include <iostream>
 #include <stdlib.h>
 
 #include "particle.h"
@@ -66,8 +67,6 @@ void PlaneTerrain::handleCollision(const float delta_T, Cube& cube) {
             (*particles)[i].addForce(fc + ff);
         }
     }
-
-    cube.computeInternalForce();
 }
 
 // SphereTerrain //
