@@ -292,7 +292,6 @@ void Cube::initializeSpringShear()
     int iNeighborID = 0;
     Eigen::Vector3f Length = Eigen::Vector3f::Zero();
 
-    // TODO
     for (int i = 0; i < particleNumPerEdge; ++i) {
         for (int j = 0; j < particleNumPerEdge; ++j) {
             for (int k = 0; k < particleNumPerEdge; ++k) {
